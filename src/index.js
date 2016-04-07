@@ -33,7 +33,8 @@ const IPropTypes = {
   renderForeground: func,
   renderScrollComponent: func,
   renderStickyHeader: func,
-  stickyHeaderHeight: number
+  stickyHeaderHeight: number,
+  backgroundHeightPad: number,
 };
 
 class ParallaxScrollView extends Component {
@@ -173,11 +174,16 @@ class ParallaxScrollView extends Component {
   _renderBackground({ fadeOutBackground, backgroundScrollSpeed, backgroundColor, parallaxHeaderHeight, stickyHeaderHeight, renderBackground }) {
     const { viewWidth, viewHeight, scrollY } = this.state;
     const p = pivotPoint(parallaxHeaderHeight, stickyHeaderHeight);
+
+    // Add the background height pad, which can offset in the case of some background showing
+    // through on scroll for slow animation API, https://github.com/jaysoo/react-native-parallax-scroll-view/issues/21
+    var backgroundHeight = parallaxHeaderHeight + this.props.backgroundHeightPad;
+
     return (
       <Animated.View
         style={[styles.backgroundImage, {
             backgroundColor: backgroundColor,
-            height: parallaxHeaderHeight,
+            height: backgroundHeight,
             width: viewWidth,
             opacity: fadeOutBackground
                      ? scrollY.interpolate({
@@ -313,7 +319,8 @@ ParallaxScrollView.defaultProps = {
   renderBackground: renderEmpty,
   renderParallaxHeader: renderEmpty, // Deprecated (will be removed in 0.18.0)
   renderForeground: null,
-  stickyHeaderHeight: 0
+  stickyHeaderHeight: 0,
+  backgroundHeightPad: 0,
 };
 
 module.exports = ParallaxScrollView;
