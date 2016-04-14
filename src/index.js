@@ -35,6 +35,7 @@ const IPropTypes = {
   renderStickyHeader: func,
   stickyHeaderHeight: number,
   backgroundHeightPad: number,
+  disableFooterSpacer: React.PropTypes.bool,
 };
 
 class ParallaxScrollView extends Component {
@@ -258,6 +259,11 @@ class ParallaxScrollView extends Component {
   }
 
   _renderFooterSpacer({ contentBackgroundColor }) {
+
+    if(this.props.disableFooterSpacer == true) {
+      return null;
+    }
+
     return (
       <View ref={ref => this._footerComponent = ref } style={{ backgroundColor: contentBackgroundColor }}/>
     );
@@ -321,6 +327,7 @@ ParallaxScrollView.defaultProps = {
   renderForeground: null,
   stickyHeaderHeight: 0,
   backgroundHeightPad: 0,
+  disableFooterSpacer: false,
 };
 
 module.exports = ParallaxScrollView;
