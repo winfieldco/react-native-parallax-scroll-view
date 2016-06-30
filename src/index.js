@@ -2,11 +2,14 @@ const React = require('react');
 const ReactNative = require('react-native');
 const {
   Animated,
-  Component,
   Dimensions,
   ScrollView,
   View
 } = ReactNative;
+
+const {
+  Component
+} = React;
 
 const styles = require('./styles');
 
