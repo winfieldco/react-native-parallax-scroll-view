@@ -350,6 +350,10 @@ class ParallaxScrollView extends Component {
 	}
 
 	_renderFooterSpacer({ contentBackgroundColor }) {
+
+		// Remove footer spacer, unsure what this even does, but its definitely wrong for our purposes...
+		return null;
+
 		return (
 			<View
 				ref={ref => {
