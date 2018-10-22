@@ -241,13 +241,6 @@ class ParallaxScrollView extends Component {
 						backgroundColor: backgroundColor,
 						height: parallaxHeaderHeight,
 						width: viewWidth,
-						opacity: fadeOutBackground
-							? interpolate(scrollY, {
-								inputRange: [0, p * (1 / 2), p * (3 / 4), p],
-								outputRange: [1, 0.3, 0.1, 0],
-								extrapolate: 'clamp'
-							})
-							: 1,
 						transform: [
 							{
 								translateY: interpolate(scrollY, {
@@ -268,9 +261,17 @@ class ParallaxScrollView extends Component {
 					}
 				]}
 			>
-				<View>
+				<Animated.View style={{
+					opacity: fadeOutBackground
+						? interpolate(scrollY, {
+							inputRange: [0, p * (1 / 2), p * (3 / 4), p],
+							outputRange: [1, 0.3, 0.1, 0],
+							extrapolate: 'clamp'
+						})
+						: 1,
+				}}>
 					{renderBackground()}
-				</View>
+				</Animated.View>
 			</Animated.View>
 		)
 	}
